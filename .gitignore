@@ -9,7 +9,7 @@ env/
 venv/
 ENV/
 .venv/
-
+# .env
 # VS Code settings
 .vscode/
 
@@ -20,7 +20,7 @@ Thumbs.db
 # Logs
 *.log
 
-# Test & coverage
+# Test & coverage`
 htmlcov/
 .coverage
 .tox/

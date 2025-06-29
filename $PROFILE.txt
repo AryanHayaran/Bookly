@@ -1,0 +1,9 @@
+function pipadd {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string[]]$Packages
+    )
+
+    pip install @Packages
+    pip freeze > requirements.txt
+}

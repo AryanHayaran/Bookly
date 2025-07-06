@@ -1,27 +1,39 @@
-from sqlmodel import SQLModel
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from src.config import Config
+from sqlmodel import SQLModel, create_engine
+from sqlalchemy.ext.asyncio import AsyncEngine
+
 
 # ✅ Correct async database URL with asyncpg
-DATABASE_URL = (
-    f"postgresql+asyncpg://{Config.DB_USER}:{Config.DB_PASSWORD}"
-    f"@{Config.DB_HOST}:{Config.DB_PORT}/{Config.DB_NAME}"
-)
+# DATABASE_URL = (
+#     f"postgresql+asyncpg://{Config.DB_USER}:{Config.DB_PASSWORD}"
+#     f"@{Config.DB_HOST}:{Config.DB_PORT}/{Config.DB_NAME}"
+# )
 
 # ✅ Correct async engine creation
-async_engine = create_async_engine(
-    Config.DATABASE_URL,
-    # echo=False,  # Set to True for SQL logs
-)
+# async_engine = create_async_engine(
+#     Config.DATABASE_URL,
+#     # echo=False,  # Set to True for SQL logs
+# )
+
+# ✅ Import necessary modules
+async_engine = AsyncEngine(create_engine(
+    url=Config.DATABASE_URL,
+    # echo=True
+))
 
 # ✅ Initialize database (e.g., on app startup)
+
+
 async def init_db():
     async with async_engine.begin() as conn:
         from src.db.models import Book  # Import your models here
         await conn.run_sync(SQLModel.metadata.create_all)
 
 # ✅ Dependency to get session
+
+
 async def get_session() -> AsyncSession:
     async_session = sessionmaker(
         async_engine,

@@ -11,7 +11,7 @@ DATABASE_URL = (
 
 # ✅ Correct async engine creation
 async_engine = create_async_engine(
-    DATABASE_URL,
+    Config.DATABASE_URL,
     # echo=False,  # Set to True for SQL logs
 )
 
